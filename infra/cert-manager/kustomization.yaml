@@ -3,3 +3,4 @@ kind: Kustomization
 namespace: infra-cert-manager
 resources:
   - resources.yaml
+  - aws-access-key.sops.yaml
