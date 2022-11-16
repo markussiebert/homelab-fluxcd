@@ -24,9 +24,15 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: traefik
+        namespace: infra-traefik
       version: "20.2.0 "
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
+  values:
+    deployment:
+      replicas: 2
+    podDisruptionBudget:
+      enabled: true
+      minAvailable: 50%
