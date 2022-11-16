@@ -32,10 +32,10 @@ spec:
       retries: 3
 ---
 apiVersion: metallb.io/v1beta1
-kind: L2Advertisement
+kind: IPAddressPool
 metadata:
   name: metallb
   namespace: infra-metallb
 spec:
-  ipAddressPools:
+  addresses:
   - 192.168.100.20/32
