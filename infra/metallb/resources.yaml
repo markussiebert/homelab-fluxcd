@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: infra-metallb
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
@@ -36,10 +40,6 @@ kind: IPAddressPool
 metadata:
   name: metallb
   namespace: infra-metallb
-  labels:
-    pod-security.kubernetes.io/enforce: privileged
-    pod-security.kubernetes.io/audit: privileged
-    pod-security.kubernetes.io/warn: privileged
 spec:
   addresses:
   - 192.168.100.110/32
