@@ -24,7 +24,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: traefik
-        namespace: infra-metallb
+        namespace: traefik
       version: "20.2.0 "
   interval: 1h0m0s
   install:
