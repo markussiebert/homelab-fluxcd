@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-openebs-jiva
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: openebs-jiva
+  namespace: infra-openebs-jiva
+spec:
+  interval: 10m0s
+  url:  https://openebs.github.io/jiva-operator
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: infra-openebs-jiva
+spec:
+  releaseName: openebs-jiva
+  chart:
+    spec:
+      chart: openebs-jiva
+      sourceRef:
+        kind: HelmRepository
+        name: openebs-jiva
+        namespace: infra-openebs-jiva
+      version: "3.3.0"
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+---
