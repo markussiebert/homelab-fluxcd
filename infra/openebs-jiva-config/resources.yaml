@@ -20,7 +20,9 @@ metadata:
   name: openebs-jiva-csi-node
   namespace: infra-openebs-jiva
 spec:
+  selector: {}
   template:
     spec:
+      metadata: {}
       containers: []
       hostPID: true
