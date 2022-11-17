@@ -42,7 +42,7 @@ metadata:
   namespace: infra-metallb
 spec:
   addresses:
-  - 192.168.100.110/32
+  - 192.168.100.125/32
 ---
 apiVersion: metallb.io/v1beta1
 kind: L2Advertisement
