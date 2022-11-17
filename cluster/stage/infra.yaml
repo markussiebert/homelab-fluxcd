@@ -101,14 +101,5 @@ spec:
   prune: true
   wait: true
   timeout: 5m
-  patches:
-    - patch: |
-        - op: add
-          path: /spec/template/spec/hostPID
-          value: true
-      target:
-          kind: Deployment
-          name: openebs-jiva-csi-node
-          namespace: infra-openebs-jiva
   dependsOn:
   - name: infra-openebs-jiva

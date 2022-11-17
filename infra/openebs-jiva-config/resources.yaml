@@ -11,3 +11,13 @@ data:
     iscsid_pid=$(pgrep iscsid)
 
     nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: openebs-jiva-csi-node
+  namespace: infra-openebs-jiva
+spec:
+  template:
+    spec:
+      hostPID: true
