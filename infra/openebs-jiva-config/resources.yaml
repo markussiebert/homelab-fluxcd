@@ -15,9 +15,12 @@ data:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
+  annotations: {}
+  labels: {}
   name: openebs-jiva-csi-node
   namespace: infra-openebs-jiva
 spec:
   template:
     spec:
+      containers: []
       hostPID: true
