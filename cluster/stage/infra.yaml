@@ -101,5 +101,5 @@ spec:
   prune: true
   wait: true
   timeout: 5m
-    dependsOn:
-    - name: infra-openebs-jiva
+  dependsOn:
+  - name: infra-openebs-jiva
