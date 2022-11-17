@@ -20,7 +20,7 @@ spec:
   releaseName: openebs-jiva
   chart:
     spec:
-      chart: openebs-jiva
+      chart: jiva
       sourceRef:
         kind: HelmRepository
         name: openebs-jiva
