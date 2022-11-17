@@ -15,8 +15,8 @@ data:
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  annotations: {}
-  labels: {}
+  annotations:
+    kustomize.toolkit.fluxcd.io/ssa: merge
   name: openebs-jiva-csi-node
   namespace: infra-openebs-jiva
 spec:
