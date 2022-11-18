@@ -41,6 +41,17 @@ spec:
               template:
                 spec:
                   hostPID: true
+    - kustomize:
+        patchesStrategicMerge:
+            - apiVersion: v1
+              kind: ConfigMap
+              metadata:
+                name: openebs-jiva-csi-iscsiadm
+              data:
+                iscsiadm: |
+                  #!/bin/sh
+                  iscsid_pid=$(pgrep iscsid)
+                  nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
   interval: 1h0m0s
   install:
     remediation:

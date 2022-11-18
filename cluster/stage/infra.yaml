@@ -70,36 +70,19 @@ spec:
   dependsOn:
     - name: infra-metallb-config
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: infra-openebs-jiva
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infra/openebs-jiva
-  prune: true
-  wait: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: infra-openebs-jiva-config
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infra/openebs-jiva-config
-  prune: true
-  wait: true
-  timeout: 5m
-  dependsOn:
-  - name: infra-openebs-jiva
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: infra-openebs-jiva
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infra/openebs-jiva
+#  prune: true
+#  wait: true
+#  timeout: 5m
+#
