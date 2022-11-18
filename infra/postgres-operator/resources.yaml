@@ -1,0 +1,62 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-postgres-operator
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: postgres-operator
+  namespace: infra-postgres-operator
+spec:
+  interval: 10m0s
+  url:  https://opensource.zalando.com/postgres-operator/charts/postgres-operator
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: postgres-operator-ui
+  namespace: infra-postgres-operator
+spec:
+  interval: 10m0s
+  url:  https://opensource.zalando.com/postgres-operator/charts/postgres-operator-ui
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: infra-postgres-operator
+  namespace: infra-postgres-operator
+spec:
+  releaseName: postgres-operator
+  chart:
+    spec:
+      chart: postgres-operator
+      sourceRef:
+        kind: HelmRepository
+        name: postgres-operator
+        namespace: infra-postgres-operator
+      #version: "20.2.0 "
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: infra-postgres-operator-ui
+  namespace: infra-postgres-operator
+spec:
+  releaseName: postgres-operator-ui
+  chart:
+    spec:
+      chart: postgres-operator-ui
+      sourceRef:
+        kind: HelmRepository
+        name: postgres-operator-ui
+        namespace: infra-postgres-operator
+      #version: "20.2.0 "
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
