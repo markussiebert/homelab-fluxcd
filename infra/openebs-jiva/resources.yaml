@@ -30,18 +30,18 @@ spec:
         name: openebs-jiva
         namespace: infra-openebs-jiva
       version: "3.3.0"
-      postRenderers:
-        - kustomize:
-            patchesStrategicMerge:
-              - apiVersion: apps/v1
-                kind: DaemonSet
-                metadata:
-                  name: openebs-jiva-csi-node
-                  namespace: infra-openebs-jiva
+  postRenderers:
+    - kustomize:
+        patchesStrategicMerge:
+          - apiVersion: apps/v1
+            kind: DaemonSet
+            metadata:
+              name: openebs-jiva-csi-node
+              namespace: infra-openebs-jiva
+            spec:
+              template:
                 spec:
-                  template:
-                    spec:
-                      hostPID: true
+                  hostPID: true
   interval: 1h0m0s
   install:
     remediation:
