@@ -88,7 +88,6 @@ spec:
         kind: HelmRepository
         name: kube-prometheus-stack
         namespace: monitoring-kube-prometheus-stack
-      version: "0.10.0"
   interval: 1h0m0s
   install:
     remediation:
