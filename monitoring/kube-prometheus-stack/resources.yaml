@@ -27,6 +27,8 @@ spec:
         namespace: monitoring-kube-prometheus-stack
       version: "41.9.1"
   values:
+    nameOverride: kps
+    fullnameOverride: kps
     prometheus:
       prometheusSpec:
         storageSpec:
