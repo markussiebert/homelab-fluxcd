@@ -26,18 +26,18 @@ spec:
         name: kube-prometheus-stack
         namespace: monitoring-kube-prometheus-stack
       version: "41.9.1"
-      values:
-        prometheus:
-          prometheusSpec:
-            storageSpec:
-              volumeClaimTemplate:
-                spec:
-                  storageClassName: openebs-jiva-csi-default
-                  accessModes: ["ReadWriteOnce"]
-                  resources:
-                    requests:
-                      storage: 5Gi
-                selector: {}
+  values:
+    prometheus:
+      prometheusSpec:
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: openebs-jiva-csi-default
+              accessModes: ["ReadWriteOnce"]
+              resources:
+                requests:
+                  storage: 5Gi
+            selector: {}
 
   interval: 1h0m0s
   install:
