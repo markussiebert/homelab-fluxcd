@@ -59,6 +59,14 @@ spec:
         nodeExporterRecording: true
         prometheus: true
         prometheusOperator: true
+    grafana:
+      persistence:
+        type: pvc
+        enabled: true
+        storageClassName: openebs-jiva-csi-defaults
+        accessModes:
+          - ReadWriteOnce
+        size: 1Gi
     prometheus:
       prometheusSpec:
         storageSpec:
