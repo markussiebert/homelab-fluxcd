@@ -107,6 +107,8 @@ spec:
   values:
     loki:
       isDefault: false
+    promtail:
+      enabled: true
   interval: 1h0m0s
   install:
     remediation:
