@@ -12,6 +12,15 @@ spec:
   interval: 10m0s
   url: https://prometheus-community.github.io/helm-charts
 ---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: grafana-charts
+  namespace: monitoring-kube-prometheus-stack
+spec:
+  interval: 10m0s
+  url: https://grafana.github.io/helm-charts
+---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
@@ -102,6 +111,24 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: kube-prometheus-stack
+        namespace: monitoring-kube-prometheus-stack
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: monitoring-prometheus-adapter
+spec:
+  releaseName: loki-stack
+  chart:
+    spec:
+      chart: loki-stack
+      sourceRef:
+        kind: HelmRepository
+        name: grafana-charts
         namespace: monitoring-kube-prometheus-stack
   interval: 1h0m0s
   install:
