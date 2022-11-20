@@ -79,7 +79,7 @@ spec:
         enabled: true
         storageClassName: openebs-jiva-csi-default
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         size: 1Gi
     prometheus:
       prometheusSpec:
@@ -87,7 +87,7 @@ spec:
           volumeClaimTemplate:
             spec:
               storageClassName: openebs-jiva-csi-default
-              accessModes: ["ReadWriteOnce"]
+              accessModes: ["ReadWriteMany"]
               resources:
                 requests:
                   storage: 5Gi
