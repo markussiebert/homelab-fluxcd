@@ -74,13 +74,6 @@ spec:
          - secretName: grafana-general-tls
            hosts:
            - grafana-stage.familie-siebert.de
-      persistence:
-        type: pvc
-        enabled: true
-        storageClassName: openebs-jiva-csi-default
-        accessModes:
-          - ReadWriteOnce
-        size: 1Gi
     prometheus:
       prometheusSpec:
         storageSpec:
