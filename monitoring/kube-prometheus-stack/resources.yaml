@@ -63,7 +63,7 @@ spec:
       persistence:
         type: pvc
         enabled: true
-        storageClassName: openebs-jiva-csi-defaults
+        storageClassName: openebs-jiva-csi-default
         accessModes:
           - ReadWriteOnce
         size: 1Gi
