@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: monitoring-kube-prometheus-stack
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
