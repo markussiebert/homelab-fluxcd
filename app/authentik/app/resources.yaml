@@ -33,6 +33,13 @@ spec:
     name: helm-secrets 
     valuesKey: postgresql_password
     targetPath: postgresql.postgresqlPassword
+  values:
+    error_reporting:
+      enabled: true
+    postgresql:
+      enabled: true
+    redis:
+      enabled: true
   interval: 1h0m0s
   install:
     remediation:
