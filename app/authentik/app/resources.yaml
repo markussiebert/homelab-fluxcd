@@ -34,6 +34,9 @@ spec:
     valuesKey: postgresql_password
     targetPath: postgresql.postgresqlPassword
   values:
+    authentik:
+      error_reporting:
+        enabled: true
     ingress:
       enabled: true
       hosts:
@@ -49,18 +52,22 @@ spec:
         - secretName: authentik-general-tls
           hosts:
           - authentik-stage.familie-siebert.de
-    error_reporting:
-      enabled: true
     postgresql:
       enabled: true
       persistence:
+        enabled: true
         storageClass: openebs-jiva-csi-default
         size: 5Gi
+        accessModes:
+        - ReadWriteOnce
     redis:
       enabled: true
       persistence:
+        enabled: true
         storageClass: openebs-jiva-csi-default
         size: 5Gi
+        accessModes:
+        - ReadWriteOnce
   interval: 1h0m0s
   install:
     remediation:
