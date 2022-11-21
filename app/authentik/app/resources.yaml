@@ -63,11 +63,11 @@ spec:
     redis:
       enabled: true
       persistence:
-        enabled: true
-        storageClass: openebs-jiva-csi-default
-        size: 5Gi
-        accessModes:
-        - ReadWriteOnce
+        enabled: false
+        #storageClass: openebs-jiva-csi-default
+        #size: 5Gi
+        #accessModes:
+        #- ReadWriteOnce
   interval: 1h0m0s
   install:
     remediation:
