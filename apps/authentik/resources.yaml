@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: app-authentik
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: authentik
+  namespace: app-authentik
+spec:
+  interval: 10m0s
+  url:  https://charts.goauthentik.io
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: app-authentik
+spec:
+  releaseName: authentik
+  chart:
+    spec:
+      chart: authentik
+      sourceRef:
+        kind: HelmRepository
+        name: authentik
+        namespace: app-authentik
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
