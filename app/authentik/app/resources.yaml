@@ -34,6 +34,21 @@ spec:
     valuesKey: postgresql_password
     targetPath: postgresql.postgresqlPassword
   values:
+    ingress:
+    enabled: true
+    hosts:
+    - host: authentik-stage.familie-siebert.de
+      paths:
+      - path: "/"
+        pathType: Prefix
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
+      tls:
+      - secretName: authentik-general-tls
+        hosts:
+        - authentik-stage.familie-siebert.de
     error_reporting:
       enabled: true
     postgresql:
