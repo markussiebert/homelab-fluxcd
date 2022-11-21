@@ -127,7 +127,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: app-authentik
+  name: app-authentik-prerequisites
   namespace: flux-system
 spec:
   interval: 10m
@@ -135,7 +135,11 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./app/authentik
+  path: ./app/authentik/prerequisites
   prune: true
   wait: true
   timeout: 5m
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
