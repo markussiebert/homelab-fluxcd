@@ -2,5 +2,4 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: infra-cert-manager
 resources:
-  - resources.yaml
-  - aws-access-key.sops.yaml
+  - config.yaml
