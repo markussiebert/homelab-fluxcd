@@ -20,6 +20,19 @@ spec:
         kind: HelmRepository
         name: authentik
         namespace: app-authentik
+  valuesFrom:
+  - kind: Secret
+    name: helm-secrets 
+    valuesKey: secret_key
+    targetPath: authentik.secret_key
+  - kind: Secret
+    name: helm-secrets 
+    valuesKey: postgresql_password
+    targetPath: authentik.postgresql.password
+  - kind: Secret
+    name: helm-secrets 
+    valuesKey: postgresql_password
+    targetPath: postgresql.postgresqlPassword
   interval: 1h0m0s
   install:
     remediation:
