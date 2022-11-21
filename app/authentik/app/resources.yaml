@@ -53,10 +53,12 @@ spec:
       enabled: true
     postgresql:
       enabled: true
-      storageClass: openebs-jiva-csi-default
+      global:
+        storageClass: openebs-jiva-csi-default
     redis:
       enabled: true
-      storageClass: openebs-jiva-csi-default
+      global:
+        storageClass: openebs-jiva-csi-default
   interval: 1h0m0s
   install:
     remediation:
