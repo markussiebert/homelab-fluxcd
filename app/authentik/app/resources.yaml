@@ -7,68 +7,68 @@ spec:
   interval: 10m0s
   url:  https://charts.goauthentik.io
 ---
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
-metadata:
-  name: app-authentik
-spec:
-  releaseName: authentik
-  chart:
-    spec:
-      chart: authentik
-      sourceRef:
-        kind: HelmRepository
-        name: authentik
-        namespace: app-authentik
-  valuesFrom:
-  - kind: Secret
-    name: helm-secrets 
-    valuesKey: secret_key
-    targetPath: authentik.secret_key
-  - kind: Secret
-    name: helm-secrets 
-    valuesKey: postgresql_password
-    targetPath: authentik.postgresql.password
-  - kind: Secret
-    name: helm-secrets 
-    valuesKey: postgresql_password
-    targetPath: postgresql.postgresqlPassword
-  values:
-    authentik:
-      error_reporting:
-        enabled: true
-    ingress:
-      enabled: true
-      hosts:
-      - host: authentik-stage.familie-siebert.de
-        paths:
-        - path: "/"
-          pathType: Prefix
-        annotations:
-          kubernetes.io/ingress.class: traefik
-          kubernetes.io/tls-acme: "true"
-          cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
-        tls:
-        - secretName: authentik-general-tls
-          hosts:
-          - authentik-stage.familie-siebert.de
-    postgresql:
-      enabled: true
-      persistence:
-        enabled: true
-        storageClass: openebs-jiva-csi-default
-        size: 5Gi
-        accessModes:
-        - ReadWriteOnce
-    redis:
-      enabled: true
-      persistence:
-        enabled: false
-        #storageClass: openebs-jiva-csi-default
-        #size: 5Gi
-        #accessModes:
-        #- ReadWriteOnce
-  interval: 1h0m0s
-  install:
-    remediation:
-      retries: 3
+#apiVersion: helm.toolkit.fluxcd.io/v2beta1
+#kind: HelmRelease
+#metadata:
+#  name: app-authentik
+#spec:
+#  releaseName: authentik
+#  chart:
+#    spec:
+#      chart: authentik
+#      sourceRef:
+#        kind: HelmRepository
+#        name: authentik
+#        namespace: app-authentik
+#  valuesFrom:
+#  - kind: Secret
+#    name: helm-secrets 
+#    valuesKey: secret_key
+#    targetPath: authentik.secret_key
+#  - kind: Secret
+#    name: helm-secrets 
+#    valuesKey: postgresql_password
+#    targetPath: authentik.postgresql.password
+#  - kind: Secret
+#    name: helm-secrets 
+#    valuesKey: postgresql_password
+#    targetPath: postgresql.postgresqlPassword
+#  values:
+#    authentik:
+#      error_reporting:
+#        enabled: true
+#    ingress:
+#      enabled: true
+#      hosts:
+#      - host: authentik-stage.familie-siebert.de
+#        paths:
+#        - path: "/"
+#          pathType: Prefix
+#        annotations:
+#          kubernetes.io/ingress.class: traefik
+#          kubernetes.io/tls-acme: "true"
+#          cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
+#        tls:
+#        - secretName: authentik-general-tls
+#          hosts:
+#          - authentik-stage.familie-siebert.de
+#    postgresql:
+#      enabled: true
+#      persistence:
+#        enabled: true
+#        storageClass: openebs-jiva-csi-default
+#        size: 5Gi
+#        accessModes:
+#        - ReadWriteOnce
+#    redis:
+#      enabled: true
+#      persistence:
+#        enabled: false
+#        #storageClass: openebs-jiva-csi-default
+#        #size: 5Gi
+#        #accessModes:
+#        #- ReadWriteOnce
+#  interval: 1h0m0s
+#  install:
+#    remediation:
+#      retries: 3
