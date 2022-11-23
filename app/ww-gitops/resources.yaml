@@ -26,4 +26,4 @@ spec:
     adminUser:
       create: true
       username: test
-      passwordHash: test
+      passwordHash: $2a$06$Knb2ogd8dmlPtmGgj2BJmeAdEPexz6hK5pbrpUX.43lS4V5CPLMQ2
