@@ -161,3 +161,19 @@ spec:
   timeout: 5m
   dependsOn:
     - name: app-authentik-prerequisites
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: ww-gitops
+  namespace: flux-system
+spec:
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  serviceAccountName: kustomize-controller
+  path: ./app/ww-gitops
+  prune: true
+  wait: true
+  timeout: 5m
