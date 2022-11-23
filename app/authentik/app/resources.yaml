@@ -48,10 +48,10 @@ spec:
           kubernetes.io/ingress.class: traefik
           kubernetes.io/tls-acme: "true"
           cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
-        tls:
-        - secretName: authentik-general-tls
-          hosts:
-          - authentik-stage.familie-siebert.de
+      tls:
+      - secretName: authentik-general-tls
+        hosts:
+        - authentik-stage.familie-siebert.de
     postgresql:
       enabled: true
       persistence:
