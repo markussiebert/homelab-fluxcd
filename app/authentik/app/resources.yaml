@@ -34,6 +34,11 @@ spec:
     valuesKey: postgresql_password
     targetPath: postgresql.postgresqlPassword
   values:
+    envValueFrom:
+      AUTHENTIK_BOOTSTRAP_PASSWORD:
+        secretKeyRef:
+          key: akadmin_password
+          name: helm-secrets
     authentik:
       error_reporting:
         enabled: true
