@@ -92,88 +92,88 @@ spec:
   dependsOn:
     - name: infra-metallb-config
 ---
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: infra-openebs-jiva
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./infra/openebs-jiva
-  prune: true
-  wait: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: monitoring-kube-prometheus-stack
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./monitoring/kube-prometheus-stack
-  prune: true
-  wait: true
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: app-authentik-prerequisites
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./app/authentik/prerequisites
-  prune: true
-  wait: true
-  timeout: 5m
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: app-authentik
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./app/authentik/app
-  prune: true
-  wait: true
-  timeout: 5m
-  dependsOn:
-    - name: app-authentik-prerequisites
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
-kind: Kustomization
-metadata:
-  name: ww-gitops
-  namespace: flux-system
-spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  serviceAccountName: kustomize-controller
-  path: ./app/ww-gitops
-  prune: true
-  wait: true
-  timeout: 5m
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: infra-openebs-jiva
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./infra/openebs-jiva
+#  prune: true
+#  wait: true
+#  timeout: 5m
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: monitoring-kube-prometheus-stack
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./monitoring/kube-prometheus-stack
+#  prune: true
+#  wait: true
+#  timeout: 5m
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: app-authentik-prerequisites
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./app/authentik/prerequisites
+#  prune: true
+#  wait: true
+#  timeout: 5m
+#  decryption:
+#    provider: sops
+#    secretRef:
+#      name: sops-age
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: app-authentik
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./app/authentik/app
+#  prune: true
+#  wait: true
+#  timeout: 5m
+#  dependsOn:
+#    - name: app-authentik-prerequisites
+#---
+#apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+#kind: Kustomization
+#metadata:
+#  name: ww-gitops
+#  namespace: flux-system
+#spec:
+#  interval: 10m
+#  sourceRef:
+#    kind: GitRepository
+#    name: flux-system
+#  serviceAccountName: kustomize-controller
+#  path: ./app/ww-gitops
+#  prune: true
+#  wait: true
+#  timeout: 5m
