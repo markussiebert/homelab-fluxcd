@@ -1,0 +1,125 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: infra-topolvm-system
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/audit: privileged
+    pod-security.kubernetes.io/warn: privileged
+    topolvm.io/webhook: ignore
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: topolvm
+  namespace: infra-topolvm-system
+spec:
+  interval: 10m0s
+  url: https://topolvm.github.io/topolvm
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: topolvm
+  namespace: infra-topolvm-system
+spec:
+  releaseName: topolvm
+  chart:
+    spec:
+      chart: jiva
+      sourceRef:
+        kind: HelmRepository
+        name: topolvm
+        namespace: infra-topolvm-system
+      version: "10.0.0"
+  # see https://github.com/topolvm/topolvm/blob/main/charts/topolvm/values.yaml
+  values:
+    controller:
+      replicaCount: 1
+      storageCapacityTracking:
+        enabled: true
+    scheduler:
+      enabled: false
+    webhook:
+      podMutatingWebhook:
+        enabled: false
+    cert-manager:
+      enabled: false
+    podSecurityPolicy:
+      create: false
+    lvmd:
+      env:
+        - name: LVM_SYSTEM_DIR
+          value: /tmp
+      deviceClasses:
+        - name: hdd
+          volume-group: topolvm-vg
+          default: true
+          spare-gb: 0
+    storageClasses:
+      - name: topolvm
+        storageClass:
+          fsType: xfs
+          # reclaimPolicy
+          reclaimPolicy: Delete
+          isDefaultClass: true
+          volumeBindingMode: WaitForFirstConsumer
+          allowVolumeExpansion: true
+
+  #postRenderers:
+  #  - kustomize:
+  #      patchesStrategicMerge:
+  #        - apiVersion: apps/v1
+  #          kind: DaemonSet
+  #          metadata:
+  #            name: openebs-jiva-csi-node
+  #          spec:
+  #            template:
+  #              spec:
+  #                hostPID: true
+  #  - kustomize:
+  #      patchesStrategicMerge:
+  #          - apiVersion: v1
+  #            kind: ConfigMap
+  #            metadata:
+  #              name: openebs-jiva-csi-iscsiadm
+  #            data:
+  #              iscsiadm: |
+  #                #!/bin/sh
+  #                iscsid_pid=$(pgrep iscsid)
+  #                nsenter --mount="/proc/${iscsid_pid}/ns/mnt" --net="/proc/${iscsid_pid}/ns/net" -- /usr/local/sbin/iscsiadm "$@"
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3
+---
+#
+#apiVersion: batch/v1
+#kind: Job
+#metadata:
+#  name: create-vg-job
+#  namespace: infra-topolvm-system
+#spec:
+#  ttlSecondsAfterFinished: 180
+#  backoffLimit: 4
+#  template:
+#    spec:
+#      restartPolicy: OnFailure
+#      containers:
+#        - name: vg-creation-pod
+#          image: rockylinux:9-minimal
+#          imagePullPolicy: IfNotPresent
+#          command:
+#            - bash
+#            - -c
+#            # TODO: Improve error handling
+#            - |
+#              nsenter -u -i -n -m -p -t 1 vgcreate topolvm-vg /dev/sdb || echo "Exists"
+#          securityContext:
+#            privileged: true
+#            runAsUser: 0
+#          env:
+#            - name: LVM_SYSTEM_DIR
+#              value: /tmp
+#      hostIPC: true
+#      hostPID: true
