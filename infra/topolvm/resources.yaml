@@ -26,7 +26,7 @@ spec:
   releaseName: topolvm
   chart:
     spec:
-      chart: jiva
+      chart: topolvm
       sourceRef:
         kind: HelmRepository
         name: topolvm
