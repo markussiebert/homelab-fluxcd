@@ -28,10 +28,117 @@ spec:
         namespace: infra-openunison
       version: "2.2.6"
   # see https://github.com/OpenUnison/helm-charts/blob/master/openunison-operator/values.yaml
-  values:
-
+  # values:
   interval: 1h0m0s
   install:
     remediation:
       retries: 3
-
+---
+apiVersion: openunison.tremolo.io/v1
+kind: OpenUnison
+metadata:
+  name: test-openunison
+  namespace: infra-openunison
+spec:
+  image: tremolosecurity/openunison-simple
+  replicas: 1
+  enable_activemq: false
+  dest_secret: openunison
+  source_secret: openunison-secrets-source
+  hosts:
+    - names:
+        - name: openunison-stage.familie-siebert.de
+          env_var: OU_HOST
+      ingress_name: openunison
+      secret_name: ou-tls-certificate
+  secret_data:
+    - unisonKeystorePassword
+    - TEST_USER_PASSWORD
+    - REG_CRED_PASSWORD
+  non_secret_data:
+    - name: REG_CRED_USER
+      value: rh_user
+    - name: TEST_USER_NAME
+      value: testuser
+    - name: MYVD_CONFIG_PATH
+      value: WEB-INF/myvd.conf
+    - name: unisonKeystorePath
+      value: /etc/openunison/unisonKeyStore.p12
+  openunison_network_configuration:
+    open_port: 8080
+    open_external_port: 80
+    secure_port: 8443
+    secure_external_port: 443
+    secure_key_alias: unison-tls
+    force_to_secure: true
+    activemq_dir: /tmp/amq
+    quartz_dir: /tmp/quartz
+    client_auth: none
+    allowed_client_names: []
+    ciphers:
+      - TLS_RSA_WITH_RC4_128_SHA
+      - TLS_RSA_WITH_AES_128_CBC_SHA
+      - TLS_RSA_WITH_AES_256_CBC_SHA
+      - TLS_RSA_WITH_3DES_EDE_CBC_SHA
+      - TLS_RSA_WITH_AES_128_CBC_SHA256
+      - TLS_RSA_WITH_AES_256_CBC_SHA256
+    path_to_deployment: /usr/local/openunison/work
+    path_to_env_file: /etc/openunison/ou.env
+  key_store:
+    static_keys:
+      - name: session-unison
+        version: 1
+    trusted_certificates: 
+      - name: trusted-adldaps
+      pem_data: |-
+                  -----BEGIN CERTIFICATE-----
+                  MIIDNDCCAhygAwIBAgIQbRNj6RKqtqVPvW65qZxXXjANBgkqhkiG9w0BAQUFADAi
+                  MSAwHgYDVQQDDBdBREZTLkVOVDJLMTIuRE9NQUlOLkNPTTAeFw0xNDAzMjgwMTA1
+                  MzNaFw0yNDAzMjUwMTA1MzNaMCIxIDAeBgNVBAMMF0FERlMuRU5UMksxMi5ET01B
+                  SU4uQ09NMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2s9JkeNAHOkQ
+                  1QYJgjefUwcaogEMcaW/koA+bu9xbr4rHy/2gN/kc8OkoPuwJ/nNlOIO+s+MbnXS
+                  L9mUTC4OK7trkEjiKXB+D+VSYy6imXh6zpBtNbeZyx+rdBnaOv3ByZRnnEB8LmhM
+                  vHA+4f/t9fx/2vt6wPx//VgIq9yuYYUQRLm1WjyUBFrZeGoSpPm0Kewm+B0bhmMb
+                  dyC+3fhaKC+Uk1NPodE2973jLBZJelZxsZY40Ww8zYQwdGYIbXqoTc+1a/x4f1En
+                  m4ANqggHtw+Nq8zhss3yTtY+UYKDRBILdLVZQhHJExe0kAeisgMxI/bBwO1HbrFV
+                  +zSnk+nvgQIDAQABo2YwZDAzBgNVHSUELDAqBggrBgEFBQcDAQYIKwYBBQUHAwIG
+                  CisGAQQBgjcUAgIGCCsGAQUFBwMDMB0GA1UdDgQWBBTyJUfY66zYbm9i0xeYHuFI
+                  4MN7uDAOBgNVHQ8BAf8EBAMCBSAwDQYJKoZIhvcNAQEFBQADggEBAM5kz9OKNSuX
+                  8w4NOgnfIFdazd0nPlIUbvDVfQoNy9Q0S1SFUVMekIPNiVhfGzya9IwRtGb1VaBQ
+                  AQ2ORIzHr8A2r5UNLx3mFjpJmeOxQwlV0X+g8s+253KVFxOpRE6yyagn/BxxptTL
+                  a1Z4qeQJLD42ld1qGlRwFtVRmVFZzVXVrpu7NuFd3vlnnO/qKWXU+uMsfXtsl13n
+                  ec1kw1Ewq2jnK8WImKTQ7/9WbaIY0gx8mowCJSOsRq0TE7zK/N55drN1wXJVxWe5
+                  4N32eCqotXy9j9lzdkNa7awb9q38nWVxP+va5jqNIDlljB6tExy5n3s7t6KK6g5j
+                  TZgVqrZ3+ms=
+                  -----END CERTIFICATE-----
+    key_pairs:
+      create_keypair_template:
+        - name: ou
+          value: k8s
+        - name: o
+          value: Tremolo Security
+        - name: l
+          value: Alexandria
+        - name: st
+          value: Virginia
+        - name: c
+          value: US
+      keys:
+        - name: unison-tls
+          tls_secret_name: unison-tls-secret
+          import_into_ks: keypair
+          create_data:
+            sign_by_k8s_ca: false
+            server_name: test-openunison.openunison.svc.cluster.local
+            subject_alternative_names: []
+            key_size: 2048
+            ca_cert: true
+        - name: unison-ca
+          tls_secret_name: ou-tls-certificate
+          import_into_ks: certificate
+          create_data:
+            sign_by_k8s_ca: false
+            server_name: test.apps.mydomain.com
+            subject_alternative_names: []
+            key_size: 2048
+            ca_cert: false
