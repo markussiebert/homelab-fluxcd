@@ -26,7 +26,7 @@ spec:
         kind: HelmRepository
         name: openunison
         namespace: infra-openunison
-      version: "0.8.48"
+      version: "2.2.6"
   # see https://github.com/OpenUnison/helm-charts/blob/master/openunison-operator/values.yaml
   values:
 
