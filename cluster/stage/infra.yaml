@@ -184,7 +184,7 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./app/authentik/prerequisites
+  path: ./infra/authentik/prerequisites
   prune: true
   wait: true
   timeout: 5m
@@ -204,7 +204,7 @@ spec:
     kind: GitRepository
     name: flux-system
   serviceAccountName: kustomize-controller
-  path: ./app/authentik/app
+  path: ./infra/authentik/app
   prune: true
   wait: true
   timeout: 5m
