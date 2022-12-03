@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: openspeedtest
+---
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: HelmRepository
+metadata:
+  name: openspeedtest
+  namespace: openspeedtest
+spec:
+  interval: 10m0s
+  url: https://openspeedtest.github.io/Helm-chart/
+---
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: openspeedtest
+  namespace: openspeedtest
+spec:
+  releaseName: openspeedtest
+  chart:
+    spec:
+      chart: openspeedtest
+      sourceRef:
+        kind: HelmRepository
+        name: openspeedtest
+        namespace: openspeedtest
+      version: "0.1.0"
+  # see https://github.com/openspeedtest/Helm-chart/blob/main/values.yaml
+  values:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
+        cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
+      hosts:
+        - host: openspeedtest-stage.familie-siebert.de
+          paths:
+            - path: /
+              pathType: ImplementationSpecific
+      tls:
+        - secretName: openspeedtest-general-tls
+          hosts:
+          - openspeedtest-stage.familie-siebert.de
+  interval: 1h0m0s
+  install:
+    remediation:
+      retries: 3

@@ -18,7 +18,7 @@ metadata:
   name: openunison-operator
   namespace: infra-openunison
 spec:
-  releaseName: authelia
+  releaseName: openunison-operator
   chart:
     spec:
       chart: openunison-operator
