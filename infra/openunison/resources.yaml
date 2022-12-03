@@ -1,34 +1,35 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: infra-authelia
+  name: infra-openunison
 ---
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
-  name: authelia
-  namespace: infra-authelia
+  name: openunison
+  namespace: infra-openunison
 spec:
   interval: 10m0s
-  url: https://charts.authelia.com
+  url: https://nexus.tremolo.io/repository/helm/
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: authelia
-  namespace: infra-authelia
+  name: openunison-operator
+  namespace: infra-openunison
 spec:
   releaseName: authelia
   chart:
     spec:
-      chart: authelia
+      chart: openunison-operator
       sourceRef:
         kind: HelmRepository
-        name: topolvm
-        namespace: infra-authelia
+        name: openunison
+        namespace: infra-openunison
       version: "0.8.48"
-  # see https://github.com/authelia/chartrepo/blob/master/charts/authelia/values.yaml
-  # values:
+  # see https://github.com/OpenUnison/helm-charts/blob/master/openunison-operator/values.yaml
+  values:
+
   interval: 1h0m0s
   install:
     remediation:
