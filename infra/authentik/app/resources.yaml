@@ -61,7 +61,7 @@ spec:
       enabled: true
       persistence:
         enabled: true
-        storageClass: openebs-jiva-csi-default
+        storageClass: topolvm
         size: 5Gi
         accessModes:
         - ReadWriteOnce
@@ -70,7 +70,7 @@ spec:
       master:
         persistence:
           enabled: true
-          storageClass: openebs-jiva-csi-default
+          storageClass: topolvm
           size: 5Gi
           accessModes:
           - ReadWriteOnce
