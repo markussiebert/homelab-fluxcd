@@ -43,4 +43,9 @@ spec:
       size: 5Gi
       accessModes:
         - ReadWriteOnce
+    ghostUsername: admin
+    ghostPassword: password12345
+    mysql:
+      auth:
+        rootPassword: password12345
   
