@@ -46,6 +46,9 @@ spec:
     ghostUsername: admin
     ghostPassword: password12345
     allowEmptyPassword: false
+    extraEnvVars:
+      - name: LOG_LEVEL
+        value: DEBUG
     mysql:
       auth:
         rootPassword: password12345
