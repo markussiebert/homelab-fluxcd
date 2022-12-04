@@ -35,7 +35,7 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
       tls: true
     service:
-      type: clusterIP  
+      type: ClusterIP  
     persistence:
       enabled: true
       storageClass: topolvm
