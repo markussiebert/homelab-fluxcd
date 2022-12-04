@@ -29,6 +29,8 @@ spec:
       version: "0.1.0"
   # see https://github.com/openspeedtest/Helm-chart/blob/main/values.yaml
   values:
+    service:
+      type: ClusterIP
     ingress:
       enabled: true
       annotations:
