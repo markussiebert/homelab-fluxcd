@@ -45,6 +45,7 @@ spec:
         - ReadWriteOnce
     ghostUsername: admin
     ghostPassword: password12345
+    allowEmptyPassword: false
     mysql:
       auth:
         rootPassword: password12345
