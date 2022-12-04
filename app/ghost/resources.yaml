@@ -52,4 +52,6 @@ spec:
     mysql:
       auth:
         rootPassword: password12345
+        username: ghost
+        password: ghost12345
   
