@@ -41,6 +41,7 @@ spec:
       size: 5Gi
       accessModes:
         - ReadWriteOnce
+    ghostEnableHttps: true
     ghostUsername: admin
     ghostPassword: password12345
     allowEmptyPassword: false
