@@ -43,14 +43,14 @@ spec:
         - ReadWriteOnce
     ghostEnableHttps: true
     ghostUsername: admin
-    ghostPassword: password12345
+    ghostPassword: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!1
     allowEmptyPassword: false
     extraEnvVars:
       - name: LOG_LEVEL
         value: DEBUG
     mysql:
       auth:
-        rootPassword: password12345
+        rootPassword: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!2
         username: ghost
-        password: ghost12345
+        password: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!3
   
