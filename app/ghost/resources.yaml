@@ -43,7 +43,7 @@ spec:
       accessModes:
         - ReadWriteOnce
     #ghostEnableHttps: true
-    ghostUsername: admin
+    ghostUsername: ghost@markussiebert.com
     ghostPassword: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!1
     allowEmptyPassword: false
     extraEnvVars:
