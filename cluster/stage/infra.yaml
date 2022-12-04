@@ -160,7 +160,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: app-authentik-prerequisites
+  name: infra-authentik-prerequisites
   namespace: flux-system
 spec:
   interval: 10m
@@ -180,7 +180,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
 metadata:
-  name: app-authentik
+  name: infra-authentik
   namespace: flux-system
 spec:
   interval: 10m
@@ -193,7 +193,10 @@ spec:
   wait: true
   timeout: 5m
   dependsOn:
-    - name: app-authentik-prerequisites
+    - name: infra-authentik-prerequisites
+    - name: infra-topolvm
+    - name: infra-certmanager-config
+    - name: infra-traefik
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
 kind: Kustomization
