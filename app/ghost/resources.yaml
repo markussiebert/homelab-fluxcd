@@ -34,7 +34,8 @@ spec:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
       tls: true
-      
+    service:
+      type: clusterIP  
     persistence:
       enabled: true
       storageClass: topolvm
