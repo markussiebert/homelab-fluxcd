@@ -28,18 +28,14 @@ spec:
   values:
     ingress:
       enabled: true
-      hostname: ghost-stage.familie-siebert.de
+      hostname: ghost-blog-stage.familie-siebert.de
       annotations:
         kubernetes.io/ingress.class: traefik
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
         # see https://ghost.org/docs/faq/proxying-https-infinite-loops/
-        traefik.ingress.kubernetes.io/router.middlewares: "ghost-blog-add-x-forwarded-proto@kubernetescrd"
-      tls: false 
-      extraTls:
-        - hosts:
-            - ghost-stage.familie-siebert.de
-          secretName: ghost-tls
+        traefik.ingress.kubernetes.io/router.middlewares: "add-x-forwarded-proto-ghost@kubernetescrd"
+      tls: true
     service:
       type: ClusterIP
       annotations: 
