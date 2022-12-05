@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ghost
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+ namespace: ghost
+ name: add-x-forwarded-proto
+spec:
+ headers:
+   customRequestHeaders:
+     X-Forwarded-Proto: https
+     Host: https
+     X-Forwarded-Protocol: https  

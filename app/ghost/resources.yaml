@@ -33,25 +33,27 @@ spec:
         kubernetes.io/ingress.class: traefik
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
+        # see https://ghost.org/docs/faq/proxying-https-infinite-loops/
+        traefik.ingress.kubernetes.io/router.middlewares: "ghost-blog-add-x-forwarded-proto@kubernetescrd"
       tls: true
     service:
-      type: ClusterIP  
+      type: ClusterIP
+      annotations: 
+        traefik.ingress.kubernetes.io/service.serversscheme: http
     persistence:
       enabled: true
       storageClass: topolvm
       size: 5Gi
       accessModes:
         - ReadWriteOnce
-    #ghostEnableHttps: true
+    ghostEnableHttps: true
     ghostUsername: ghost@markussiebert.com
     ghostPassword: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!1
     allowEmptyPassword: false
     extraEnvVars:
       - name: LOG_LEVEL
         value: DEBUG
-    mysql:
-      auth:
-        rootPassword: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!2
-        username: ghost
-        password: 7m@WKiNyJArs8aL*UzhZ4dz!wrHF!3
-  
+  valuesFrom:
+    - kind: Secret
+      name: helm-secrets
+
