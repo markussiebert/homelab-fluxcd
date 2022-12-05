@@ -39,7 +39,8 @@ spec:
       extraTls:
         - hosts:
             - ghost-stage.familie-siebert.de
-          secretName: ghost-stage-tls
+          secretName: ghost-tls
+    service:
       type: ClusterIP
       annotations: 
         traefik.ingress.kubernetes.io/service.serversscheme: http
