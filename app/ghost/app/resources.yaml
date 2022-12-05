@@ -56,4 +56,26 @@ spec:
   valuesFrom:
     - kind: Secret
       name: helm-secrets
+      valuesKey: ghostUsername
+      targetPath: ghostUsername
+    - kind: Secret
+      name: helm-secrets
+      valuesKey: ghostPassword
+      targetPath: ghostPassword
+    - kind: Secret
+      name: helm-secrets
+      valuesKey: ghostEmail
+      targetPath: ghostEmail 
+    - kind: Secret
+      name: helm-secrets
+      valuesKey: mysqlRootPassword
+      targetPath: mysql.auth.rootPassword 
+    - kind: Secret
+      name: helm-secrets
+      valuesKey: mysqlUsername
+      targetPath: mysql.auth.username
+    - kind: Secret
+      name: helm-secrets
+      valuesKey: mysqlPassword
+      targetPath: mysql.auth.password
 
