@@ -34,7 +34,7 @@ spec:
         kubernetes.io/tls-acme: "true"
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
         # see https://ghost.org/docs/faq/proxying-https-infinite-loops/
-        traefik.ingress.kubernetes.io/router.middlewares: "add-x-forwarded-proto-ghost@kubernetescrd"
+        traefik.ingress.kubernetes.io/router.middlewares: "ghost-add-x-forwarded-proto@kubernetescrd"
       tls: true
     service:
       type: ClusterIP
