@@ -8,7 +8,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
  namespace: ghost
- name: add-x-forwarded-proto
+ name: ghost-blog-add-x-forwarded-proto
 spec:
  headers:
    customRequestHeaders:
