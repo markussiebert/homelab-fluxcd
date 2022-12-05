@@ -35,7 +35,7 @@ spec:
         cert-manager.io/cluster-issuer: letsencrypt-familie-siebert-de
         # see https://ghost.org/docs/faq/proxying-https-infinite-loops/
         traefik.ingress.kubernetes.io/router.middlewares: "ghost-blog-add-x-forwarded-proto@kubernetescrd"
-        tls: false 
+      tls: false 
         extraTls:
           - hosts:
               - ghost-stage.familie-siebert.de
