@@ -36,9 +36,9 @@ spec:
           protocol: TCP
           name: http
         volumeMounts:
-        - name: adguard-primary-conf
+        - name: conf
           mountPath: /opt/adguardhome/conf
-        - name:
+        - name: work
           mountPath: /opt/adguardhome/work
   volumeClaimTemplates:
   - metadata:
