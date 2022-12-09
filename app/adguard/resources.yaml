@@ -13,7 +13,7 @@ spec:
   selector:
     matchLabels:
       app: adguard # has to match .spec.template.metadata.labels
-  serviceName: "nginx"
+  serviceName: "adguard"
   replicas: 1 # by default is 1
   minReadySeconds: 10 # by default is 0
   template:
