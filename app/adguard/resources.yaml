@@ -36,11 +36,21 @@ spec:
           protocol: TCP
           name: http
         volumeMounts:
-        - name: state
-          mountPath: /opt/adguardhome
+        - name: conf
+          mountPath: /opt/adguardhome/conf
+        - name: work
+          mountPath: /opt/adguardhome/work
   volumeClaimTemplates:
   - metadata:
-      name: state
+      name: conf
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "topolvm"
+      resources:
+        requests:
+          storage: 10Mi
+  - metadata:
+      name: work
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "topolvm"
