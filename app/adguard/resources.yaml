@@ -57,7 +57,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: adguard
-  namespace: awdguard
+  namespace: adguard
 roleRef:
   kind: Role
   name: leader-election-role
