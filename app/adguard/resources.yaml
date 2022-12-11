@@ -99,6 +99,19 @@ spec:
           mountPath: /opt/adguardhome/conf
         - name: work
           mountPath: /opt/adguardhome/work
+      - name: leder-election
+        image: ghcr.io/markussiebert/go-and-lead:main
+        env:
+        - name: IN_CLUSTER
+          value: "true"
+        - name: NAMESPACE
+          value: "adguard"
+        - name: NAME
+          value: "adguard-leader-election"
+        ports:
+        - containerPort: 80
+          protocol: TCP
+          name: healthz
       serviceAccountName: adguard
   volumeClaimTemplates:
   - metadata:
