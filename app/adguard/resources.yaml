@@ -102,11 +102,11 @@ spec:
       - name: leder-election
         image: ghcr.io/markussiebert/go-and-lead:main
         env:
-        - name: IN_CLUSTER
+        - name: GOL_IN_CLUSTER
           value: "true"
-        - name: NAMESPACE
+        - name: GOL_NAMESPACE
           value: "adguard"
-        - name: NAME
+        - name: GOL_NAME
           value: "adguard-leader-election"
         ports:
         - containerPort: 80
