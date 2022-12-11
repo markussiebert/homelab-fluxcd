@@ -5,6 +5,18 @@ metadata:
   name: adguard
 ---
 apiVersion: v1
+kind: Service
+metadata:
+  name: adguard
+spec:
+  selector:
+    app.kubernetes.io/name: adguard
+  ports:
+    - protocol: TCP
+      port: 53
+      targetPort: 53
+---
+apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: adguard
@@ -71,14 +83,14 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: adguard # has to match .spec.template.metadata.labels
+      app.kubernetes.io/name: adguard # has to match .spec.template.metadata.labels
   serviceName: "adguard"
   replicas: 3 # by default is 1
   minReadySeconds: 10 # by default is 0
   template:
     metadata:
       labels:
-        app: adguard # has to match .spec.selector.matchLabels
+        app.kubernetes.io/name: adguard # has to match .spec.selector.matchLabels
     spec:
       terminationGracePeriodSeconds: 20
       containers:
@@ -101,13 +113,22 @@ spec:
           mountPath: /opt/adguardhome/work
       - name: leder-election
         image: ghcr.io/markussiebert/go-and-lead:main
+        imagePullPolicy: Always
         env:
-        - name: GOL_IN_CLUSTER
+        - name: GAL_IN_CLUSTER
           value: "true"
-        - name: GOL_NAMESPACE
-          value: "adguard"
-        - name: GOL_NAME
+        - name: GAL_NAME
           value: "adguard-leader-election"
+        - name: GAL_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: GAL_ID
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: GAL_SVC
+          value: adguard
         ports:
         - containerPort: 80
           protocol: TCP
@@ -115,12 +136,6 @@ spec:
         livenessProbe:
           httpGet:
             path: /liveness
-            port: 80
-          initialDelaySeconds: 3
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /readiness
             port: 80
           initialDelaySeconds: 3
           periodSeconds: 10
