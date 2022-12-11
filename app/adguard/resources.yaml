@@ -85,7 +85,7 @@ spec:
     matchLabels:
       app.kubernetes.io/name: adguard # has to match .spec.template.metadata.labels
   serviceName: "adguard"
-  replicas: 3 # by default is 1
+  replicas: 3
   minReadySeconds: 10 # by default is 0
   template:
     metadata:
