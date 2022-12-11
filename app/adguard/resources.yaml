@@ -57,7 +57,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: adguard
-  apiGroup: rbac.authorization.k8s.io
+  namespace: awdguard
 roleRef:
   kind: Role
   name: leader-election-role
