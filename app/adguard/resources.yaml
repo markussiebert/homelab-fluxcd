@@ -112,6 +112,18 @@ spec:
         - containerPort: 80
           protocol: TCP
           name: healthz
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 80
+          initialDelaySeconds: 3
+          periodSeconds: 10
       serviceAccountName: adguard
   volumeClaimTemplates:
   - metadata:
