@@ -4,6 +4,51 @@ kind: Namespace
 metadata:
   name: adguard
 ---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: adguard
+  namespace: adguard
+---
+# permissions to do leader election.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: leader-election-role
+  namespace: adguard
+rules:
+#- apiGroups:
+#  - ""
+#  resources:
+#  - configmaps
+#  verbs:
+#  - get
+#  - list
+#  - watch
+#  - create
+#  - update
+#  - patch
+#  - delete
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - update
+  - patch
+  - delete
+#- apiGroups:
+#  - ""
+#  resources:
+#  - events
+#  verbs:
+#  - create
+#  - patch
+---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
@@ -40,6 +85,7 @@ spec:
           mountPath: /opt/adguardhome/conf
         - name: work
           mountPath: /opt/adguardhome/work
+      serviceAccountName: adguard
   volumeClaimTemplates:
   - metadata:
       name: conf
