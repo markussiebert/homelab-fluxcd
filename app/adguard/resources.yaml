@@ -128,7 +128,7 @@ spec:
         - name: GAL_SVC
           value: adguard
         - name: GAL_PORT
-          value: 8080
+          value: "8080"
         ports:
         - containerPort: 8080
           protocol: TCP
