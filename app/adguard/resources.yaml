@@ -9,6 +9,7 @@ kind: Service
 metadata:
   name: adguard
 spec:
+  type: LoadBalancer
   selector:
     app.kubernetes.io/name: adguard
   ports:
