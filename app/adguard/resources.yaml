@@ -12,13 +12,16 @@ spec:
   selector:
     app.kubernetes.io/name: adguard
   ports:
-    - protocol: TCP
+    - name: dns-tcp
+      protocol: TCP
       port: 53
       targetPort: 53
-    - protocol: UDP
+    - name: dns-udp
+      protocol: UDP
       port: 53
       targetPort: 53
-    - protocol: TCP
+    - name: http
+      protocol: TCP
       port: 80
       targetPort: 80
 ---
