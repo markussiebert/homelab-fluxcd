@@ -36,3 +36,6 @@ spec:
     podDisruptionBudget:
       enabled: true
       minAvailable: 50%
+    service:
+      annotations: 
+        external-dns.alpha.kubernetes.io/hostname: "*.stage.familie-siebert.de"
